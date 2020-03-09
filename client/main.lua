@@ -74,3 +74,8 @@ end)
 AddEventHandler('playerSpawned', function()
     TriggerServerEvent('esx_vSync:requestSync')
 end)
+
+RegisterNetEvent('esx:showSyncNotification')
+AddEventHandler('esx:showSyncNotification', function(msg, ...)
+	ESX.ShowNotification(_U(msg, ...), true, true, 110)
+end)

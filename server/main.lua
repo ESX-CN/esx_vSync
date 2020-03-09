@@ -101,9 +101,9 @@ ESX.RegisterCommand('freezetime', 'admin', function(xPlayer, args, showError)
     if xPlayer.source ~= 0 then
         freezeTime = not freezeTime
         if freezeTime then
-            TriggerClientEvent('esx:showNotification', xPlayer.source, _U('frozen_time'))
+            TriggerClientEvent('esx:showSyncNotification', xPlayer.source, 'frozen_time')
         else
-            TriggerClientEvent('esx:showNotification', xPlayer.source, _U('no_frozen_time'))
+            TriggerClientEvent('esx:showSyncNotification', xPlayer.source, 'no_frozen_time')
         end
     else
         freezeTime = not freezeTime
@@ -120,9 +120,9 @@ ESX.RegisterCommand('freezeweather', 'admin', function(xPlayer, args, showError)
     if xPlayer.source ~= 0 then
         DynamicWeather = not DynamicWeather
         if not DynamicWeather then
-            TriggerClientEvent('esx:showNotification', xPlayer.source, _U('dynamic_weather_off'))
+            TriggerClientEvent('esx:showSyncNotification', xPlayer.source, 'dynamic_weather_off')
         else
-            TriggerClientEvent('esx:showNotification', xPlayer.source, _U('dynamic_weather_on'))
+            TriggerClientEvent('esx:showSyncNotification', xPlayer.source, 'dynamic_weather_on')
         end
     else
         DynamicWeather = not DynamicWeather
@@ -144,7 +144,7 @@ ESX.RegisterCommand('weather', 'admin', function(xPlayer, args, showError)
         else
             for i,wtype in ipairs(Config.AvailableWeatherTypes) do
                 if wtype == string.upper(args.weatherType) then
-                    validWeatherType = true
+                    validWeatherType = trueZ
                 end
             end
             if validWeatherType then
@@ -167,7 +167,7 @@ ESX.RegisterCommand('weather', 'admin', function(xPlayer, args, showError)
                 end
             end
             if validWeatherType then
-                TriggerClientEvent('esx:showNotification', xPlayer.source, _U('change_weather', string.lower(args.weatherType)))
+                TriggerClientEvent('esx:showSyncNotification', xPlayer.source, 'change_weather', string.lower(args.weatherType))
                 CurrentWeather = string.upper(args.weatherType)
                 newWeatherTimer = 10
                 TriggerEvent('esx_vSync:requestSync')
@@ -192,9 +192,9 @@ ESX.RegisterCommand('blackout', 'admin', function(xPlayer, args, showError)
     else
         blackout = not blackout
         if blackout then
-            TriggerClientEvent('esx:showNotification', xPlayer.source, _U('blackout_enabled'))
+            TriggerClientEvent('esx:showSyncNotification', xPlayer.source, 'blackout_enabled')
         else
-            TriggerClientEvent('esx:showNotification', xPlayer.source, _U('blackout_disabled'))
+            TriggerClientEvent('esx:showSyncNotification', xPlayer.source, 'blackout_disabled')
         end
         TriggerEvent('esx_vSync:requestSync')
     end
@@ -207,7 +207,7 @@ ESX.RegisterCommand('morning', 'admin', function(xPlayer, args, showError)
     end
     ShiftToMinute(0)
     ShiftToHour(9)
-    TriggerClientEvent('esx:showNotification', xPlayer.source, _U('morning_time'))
+    TriggerClientEvent('esx:showSyncNotification', xPlayer.source, 'morning_time')
     TriggerEvent('esx_vSync:requestSync')
 end, true, {help = _U('morning_help'), validate = false, arguments = {}})
 
@@ -218,7 +218,7 @@ ESX.RegisterCommand('noon', 'admin', function(xPlayer, args, showError)
     end
     ShiftToMinute(0)
     ShiftToHour(12)
-    TriggerClientEvent('esx:showNotification', xPlayer.source, _U('noon_time'))
+    TriggerClientEvent('esx:showSyncNotification', xPlayer.source, 'noon_time')
     TriggerEvent('esx_vSync:requestSync')
 end, true, {help = _U('noon_help'), validate = false, arguments = {}})
 
@@ -229,7 +229,7 @@ ESX.RegisterCommand('evening', 'admin', function(xPlayer, args, showError)
     end
     ShiftToMinute(0)
     ShiftToHour(18)
-    TriggerClientEvent('esx:showNotification', xPlayer.source, _U('evening_time'))
+    TriggerClientEvent('esx:showSyncNotification', xPlayer.source, 'evening_time')
     TriggerEvent('esx_vSync:requestSync')
 end, true, {help = _U('evening_help'), validate = false, arguments = {}})
 
@@ -240,7 +240,7 @@ ESX.RegisterCommand('night', 'admin', function(xPlayer, args, showError)
     end
     ShiftToMinute(0)
     ShiftToHour(23)
-    TriggerClientEvent('esx:showNotification', xPlayer.source, _U('night_time'))
+    TriggerClientEvent('esx:showSyncNotification', xPlayer.source, 'night_time')
     TriggerEvent('esx_vSync:requestSync')
 end, true, {help = _U('night_help'), validate = false, arguments = {}})
 
@@ -285,7 +285,7 @@ ESX.RegisterCommand('time', 'admin', function(xPlayer, args, showError)
             else
                 newtime = newtime .. ":" .. minute
             end
-            TriggerClientEvent('esx:showNotification', xPlayer.source, _U('time_changed_s', newtime))
+            TriggerClientEvent('esx:showSyncNotification', xPlayer.source, 'time_changed_s', newtime)
             TriggerEvent('esx_vSync:requestSync')
         else
             TriggerClientEvent('chatMessage', xPlayer.source, '', {255,255,255}, _U('invalid_time_syntax_c'))
